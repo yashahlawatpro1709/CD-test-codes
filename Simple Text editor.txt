@@ -1,0 +1,51 @@
+#include <iostream>
+#include <stack>
+#include <string>
+
+using namespace std;
+
+int main() {
+    int q; // number of operations
+    cin >> q;
+
+    stack<string> history; // keep track of previous states
+    string current; // current state
+
+    while (q--) {
+        int op;
+        cin >> op;
+
+        switch (op) {
+            case 1: {
+                string w;
+                cin >> w;
+                history.push(current); // save current state
+                current += w; // append string to end
+                break;
+            }
+            case 2: {
+                int k;
+                cin >> k;
+                history.push(current); // save current state
+                current.erase(current.end() - k, current.end()); // delete last k characters
+                break;
+            }
+            case 3: {
+                int k;
+                cin >> k;
+                cout << current[k - 1] << endl; // print k-th character
+                break;
+            }
+            case 4: {
+                if (!history.empty()) {
+                    current = history.top(); // revert to previous state
+                    history.pop(); // remove last state from history
+                }
+                break;
+            }
+        }
+    }
+
+    return 0;
+}
+
